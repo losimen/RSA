@@ -5,8 +5,6 @@
 #ifndef RSA_RSA_H
 #define RSA_RSA_H
 
-
-#include<iostream>
 #include<cmath>
 
 
