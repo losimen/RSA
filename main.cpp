@@ -4,23 +4,20 @@
 
 
 int main() {
-    double message = 9;
-    RSA a;
+    RSA a, b;
+    std::string msg = "Hello world!";
 
-    std::cout << "Encrypted message = "<< a.encryptMsg(message) << std::endl;
+    std::vector<int> encr1 = a.encryptPublicMsg("HELLO");
 
-    double secret_d = a.getSecret();
+    std::cout << "Encryption: ";
+    for (auto el: encr1)
+        std::cout << el << " ";
+    std::cout << std::endl;
+//
+    std::cout << "-Decrypted message good = " << a.decryptPrivateMsg(encr1) << std::endl;
+//    std::cout << "-Decrypted message bad = " << b.decryptPrivateMsg(encr1) << std::endl;
 
-    // -- True secret decryption
-    std::cout << "Decrypted with set secret message = "<< a.decryptMsg(message, secret_d) << std::endl;
-    std::cout <<"Decrypted with secret message = "<< a.decryptMsg(message) << std::endl;
-
-    // - False secret decryption
-    secret_d += 1;
-    a.setSecret(secret_d);
-
-    std::cout << "Decrypted with set secret message = "<< a.decryptMsg(message, secret_d) << std::endl;
-    std::cout <<"Decrypted with secret message = "<< a.decryptMsg(message) << std::endl;
+//    std::cout << "-Decrypted message = " << a.decryptPrivateMsg(encr1) << std::endl;
 
     return 0;
 }
