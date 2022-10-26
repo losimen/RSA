@@ -10,40 +10,37 @@
 #include <map>
 #include <vector>
 #include <random>
+#include <bitset>
 
 #include "InfInt.h"
+#include "base64.h"
+
+
+typedef std::vector<std::bitset<8>> byteArray;
 
 
 class RSA {
 private:
-    double n;
-    double e;
-    double d;
+    unsigned long long n;
+    unsigned long long e;
+    unsigned long long d;
 
-    static const std::map<int, std::string> symbolCode;
     InfInt Pow(int number, int toPow) const;
 
     bool isPrime(int number) const;
 
-    double encryptPublic(const double &msg) const;
-    double encryptPrivate(const double &msg) const;
+    unsigned long long encryptPublic(const unsigned long long &msg) const;
+    unsigned long long encryptPrivate(const unsigned long long &msg) const;
 
-    double decryptPrivate(const double &msg) const;
-    double decryptPublic(const double &msg) const;
+    unsigned long long decryptPrivate(const unsigned long long &msg) const;
+//    double decryptPublic(const double &msg) const;
 
 public:
-    RSA();
+    RSA(unsigned long long p = 13, unsigned long long q = 11);
 
-    double getN() const;
-    double getE() const;
+    byteArray encryptPublicMsg(const std::string &msg) const;
+    std::string decryptPrivateMsg(const byteArray &msg) const;
 
-    std::vector<int> encryptPublicMsg(const std::string &msg) const;
-    std::vector<int> encryptPrivateMsg(const std::string &msg) const;
-
-    std::string decryptPrivateMsg(const std::vector<int> &msg) const;
-
-    double getSecret() const;
-    void setSecret(double d_secret);
 };
 
 

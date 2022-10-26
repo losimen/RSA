@@ -4,18 +4,19 @@
 
 
 int main() {
-    RSA a, b;
+    RSA a(13, 11);
+    RSA b(11, 17);
+
     std::string msg = "Hello world!";
 
-    std::vector<int> encr1 = a.encryptPublicMsg("HELLO");
+    byteArray arrA = a.encryptPublicMsg("HELLO");
 
-    std::cout << "Encryption: ";
-    for (auto el: encr1)
-        std::cout << el << " ";
+    for (auto byte: arrA)
+        std::cout << byte.to_string();
     std::cout << std::endl;
-//
-    std::cout << "-Decrypted message good = " << a.decryptPrivateMsg(encr1) << std::endl;
-//    std::cout << "-Decrypted message bad = " << b.decryptPrivateMsg(encr1) << std::endl;
+
+    std::cout << "-Decrypted private message good = " << a.decryptPrivateMsg(arrA) << std::endl;
+    std::cout << "-Decrypted private message bad = " << b.decryptPrivateMsg(arrA) << std::endl;
 
 //    std::cout << "-Decrypted message = " << a.decryptPrivateMsg(encr1) << std::endl;
 
