@@ -8,9 +8,9 @@ int main() {
     RSA b(11, 17);
 
     std::string msg = "Hello world!";
+    byteArray arrA = a.encryptPublicMsg(msg);
 
-    byteArray arrA = a.encryptPublicMsg("HELLO");
-
+    std::cout << "-Encrypt public view: ";
     for (auto byte: arrA)
         std::cout << byte.to_string();
     std::cout << std::endl;
@@ -18,7 +18,15 @@ int main() {
     std::cout << "-Decrypted private message good = " << a.decryptPrivateMsg(arrA) << std::endl;
     std::cout << "-Decrypted private message bad = " << b.decryptPrivateMsg(arrA) << std::endl;
 
-//    std::cout << "-Decrypted message = " << a.decryptPrivateMsg(encr1) << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "-Encrypt private view: ";
+    arrA = a.encryptPrivateMsg(msg);
+    for (auto byte: arrA)
+        std::cout << byte.to_string();
+    std::cout << std::endl;
+
+    std::cout << "-Decrypted public message good = " << a.decryptPublicMsg(arrA) << std::endl;
+    std::cout << "-Decrypted public message bad = " << b.decryptPublicMsg(arrA) << std::endl;
 
     return 0;
 }

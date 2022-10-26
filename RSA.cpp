@@ -48,23 +48,21 @@ RSA::RSA(unsigned long long p, unsigned long long q) {
         }
     }
 
-//    std::cout << "secret n = " << n << std::endl;
 //    std::cout << "secret d = "<< d << std::endl;
-//
 //    std::cout << "public e = " << e << std::endl;
-//    std::cout << "public n = " << n << std::endl;
+//    std::cout << "both n = " << n << std::endl;
 }
 
 
 unsigned long long RSA::encryptPublic(const unsigned long long &msg) const {
-    double c = pow(msg,e);
-    return fmod(c,n);
+    InfInt m = Pow(msg, e);
+    return (m%long(n)).toInt();
 }
 
 
 unsigned long long RSA::encryptPrivate(const unsigned long long &msg) const {
-    double c = pow(msg,d);
-    return fmod(c,n);
+    InfInt m = Pow(msg, d);
+    return (m%long(n)).toInt();
 }
 
 
@@ -74,11 +72,27 @@ unsigned long long RSA::decryptPrivate(const unsigned long long &msg) const {
 }
 
 
+unsigned long long RSA::decryptPublic(const unsigned long long &msg) const {
+    InfInt m = Pow(int(msg), int(e));
+    return (m%long(n)).toInt();
+}
+
+
 byteArray RSA::encryptPublicMsg(const std::string &msg) const {
     byteArray bytes;
 
     for (auto& it : msg)
-        bytes.push_back(std::bitset<8>(encryptPublic(it)));
+        bytes.push_back(byteWord(encryptPublic(it)));
+
+    return bytes;
+}
+
+
+byteArray RSA::encryptPrivateMsg(const std::string &msg) const {
+    byteArray bytes;
+
+    for (auto& it : msg)
+        bytes.push_back(byteWord(encryptPrivate(it)));
 
     return bytes;
 }
@@ -89,6 +103,15 @@ std::string RSA::decryptPrivateMsg(const byteArray &bytes) const {
 
     for (auto& it : bytes)
         decryptedMsg += char(decryptPrivate(it.to_ulong()));
+
+    return decryptedMsg;
+}
+
+std::string RSA::decryptPublicMsg(const byteArray &bytes) const {
+    std::string decryptedMsg;
+
+    for (auto& it : bytes)
+        decryptedMsg += char(decryptPublic(it.to_ulong()));
 
     return decryptedMsg;
 }

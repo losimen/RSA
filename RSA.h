@@ -13,10 +13,10 @@
 #include <bitset>
 
 #include "InfInt.h"
-#include "base64.h"
 
 
-typedef std::vector<std::bitset<8>> byteArray;
+typedef std::bitset<8> byteWord;
+typedef std::vector<byteWord> byteArray;
 
 
 class RSA {
@@ -33,13 +33,17 @@ private:
     unsigned long long encryptPrivate(const unsigned long long &msg) const;
 
     unsigned long long decryptPrivate(const unsigned long long &msg) const;
+    unsigned long long decryptPublic(const unsigned long long &msg) const;
 //    double decryptPublic(const double &msg) const;
 
 public:
     RSA(unsigned long long p = 13, unsigned long long q = 11);
 
     byteArray encryptPublicMsg(const std::string &msg) const;
-    std::string decryptPrivateMsg(const byteArray &msg) const;
+    byteArray encryptPrivateMsg(const std::string &msg) const;
+
+    std::string decryptPrivateMsg(const byteArray &bytes) const;
+    std::string decryptPublicMsg(const byteArray &bytes) const;
 
 };
 
