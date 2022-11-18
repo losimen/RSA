@@ -34,7 +34,6 @@ private:
 
     unsigned long long decryptPrivate(const unsigned long long &msg) const;
     unsigned long long decryptPublic(const unsigned long long &msg) const;
-//    double decryptPublic(const double &msg) const;
 
 public:
     RSA(unsigned long long p = 13, unsigned long long q = 11);

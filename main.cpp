@@ -7,7 +7,7 @@ int main() {
     RSA a(13, 11);
     RSA b(11, 17);
 
-    std::string msg = "Hello world!";
+    std::string msg = "Hello Pavlo!";
     byteArray arrA = a.encryptPublicMsg(msg);
 
     std::cout << "-Encrypt public view: ";
